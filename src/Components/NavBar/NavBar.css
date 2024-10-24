@@ -1,0 +1,43 @@
+.NavbarItems {
+    background: linear-gradient(
+        90deg,
+        rgb(37, 211, 102) 0%,
+        rgb(40, 211, 90) 100%
+    );
+    height: 80px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    padding: 0 20px; /* Optional: Adjust horizontal padding if needed */
+    box-sizing: border-box; /* Ensure padding does not affect width */
+    position: relative;
+}
+
+.navbar-logo {
+    color: #fff;
+    margin-right: -30px; /* Space between the logo and the title */
+    cursor: pointer;
+}
+
+img {
+    width: 50px; /* Adjust the logo size if needed */
+}
+
+.navbar-title {
+    color: white;
+    font-weight: bold;
+    font-size: 1.3rem; /* Adjust font size if necessary */
+    flex: 1; /* Take up remaining space */
+    text-align: center; /* Center text inside the title element */
+}
+
+.NavbarItems > * {
+    flex-shrink: 0; /* Prevent items from shrinking */
+}
+
+@media screen and (max-width: 960px) {
+    .NavbarItems {
+        padding: 0 10px; /* Adjust padding for smaller screens */
+    }
+}

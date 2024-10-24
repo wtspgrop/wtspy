@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@media (max-width: 768px){
+    .md\:w-1\/2 {
+        width: 85%!important;
+    }    
+}
+body{
+    background-color: rgba(238, 236, 236, 0.904);
+}
+.Conts{
+    margin-bottom: 30px;
+}

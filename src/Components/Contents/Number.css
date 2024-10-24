@@ -1,0 +1,34 @@
+/* Number.css */
+
+.PhoneInput {
+    text-align: center; /* Center the text inside the PhoneInput */
+}
+
+.PhoneInput input {
+    text-align: center; /* Center the text inside the input field */
+    color: #000; /* Makes the text inside the PhoneInput black */
+}
+
+h2 {
+    color: #000; /* Makes the message text black */
+}
+
+.text-gray-700 {
+    color: #000; /* Overrides gray text color for more black */
+}
+
+.text-black {
+    color: #000; /* Utility class to set text color to black */
+}
+
+/* Ensure the PhoneInput's input text color is properly set */
+.PhoneInput input::placeholder {
+    color: #999; /* Adjust placeholder color if needed */
+}
+
+.custom-button {
+    max-width: 200px; /* Adjust the width as needed */
+    width: 100%; /* Ensure the button doesn’t exceed the maximum width */
+    margin: 0 auto; /* Center the button horizontally */
+    padding: 12px; /* Adjust the padding as needed */
+}
