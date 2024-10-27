@@ -1,0 +1,61 @@
+.footer {
+    background-color: #121b22; /* Dark background */
+    padding: 20px; /* Padding for spacing (adjust as needed) */
+    color: white; /* Text color */
+    text-align: center; /* Center align text */
+    margin-top: 135px; /* Create space above the footer */
+}
+
+.footer-title {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    margin-bottom: 15px; /* Spacing below the title */
+}
+
+.footer-logo {
+    width: 120px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure it's treated as a block element */
+    margin: 0; /* Remove margin for centering */
+}
+
+.footer-links {
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 40px; /* Spacing between columns */
+    margin-bottom: 20px; /* Spacing below the links */
+}
+
+.footer-link-column {
+    display: flex;
+    flex-direction: column; /* Arrange links vertically */
+    text-align: left; /* Align text to the left */
+}
+
+.footer-link-column h4 {
+    margin-bottom: 3px; /* Space between heading and links */
+    font-weight: bold; /* Bold headings */
+    color: white; /* Heading color */
+}
+
+.footer-link-column a {
+    text-decoration: none;
+    color: white; /* White link color */
+    transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.footer-link-column a:hover {
+    color: #e8e8e8; /* Lighter shade on hover */
+}
+
+.footer-info {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #e0e0e0; /* Lighter grey for footer info */
+}
+
+.footer-info span {
+    display: block; /* Make sure it takes up full width */
+    margin-top: 5px; /* Spacing above the copyright text */
+}

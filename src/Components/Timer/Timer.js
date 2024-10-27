@@ -10,7 +10,7 @@ function Timer() {
   const settingsInfo = useContext(SettingsContext);
 
   const [isPaused, setIsPaused] = useState(false);
-  const [mode, setMode] = useState("work"); // work/break/null
+  const [mode, setMode] = useState("work");
   const [secondsLeft, setSecondsLeft] = useState(0);
 
   const secondsLeftRef = useRef(secondsLeft);
@@ -35,7 +35,7 @@ function Timer() {
       secondsLeftRef.current = nextSeconds;
     }
 
-    secondsLeftRef.current = 2 * 60; // Set initial time to 2 minutes
+    secondsLeftRef.current = 2 * 60;
     setSecondsLeft(secondsLeftRef.current);
 
     const interval = setInterval(() => {
@@ -60,7 +60,10 @@ function Timer() {
   if (seconds < 10) seconds = "0" + seconds;
 
   return (
-    <div>
+    <div className="text-center">
+      <h2 className="text-red-600 font-bold my-6">
+        ادخلت رمز خطأ، اعد المحاولة بعد نفاذ الوقت
+      </h2>
       <CircularProgressbar
         value={percentage}
         text={minutes + ":" + seconds}

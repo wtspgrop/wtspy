@@ -3,3 +3,12 @@
     width: 100%; /* Ensure the button doesn’t exceed the maximum width */
     margin: 0 auto; /* Center the button horizontally */
 }
+
+/* Assuming this is in your CSS file */
+body {
+    background-color: white; /* Change to white or your desired color */
+}
+
+.Conts {
+    background-color: white; /* Ensure your container is white */
+}

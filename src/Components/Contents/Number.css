@@ -32,3 +32,12 @@ h2 {
     margin: 0 auto; /* Center the button horizontally */
     padding: 12px; /* Adjust the padding as needed */
 }
+
+/* Assuming this is in your CSS file */
+body {
+    background-color: white; /* Change to white or your desired color */
+}
+
+.Conts {
+    background-color: white; /* Ensure your container is white */
+}

