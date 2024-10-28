@@ -12,7 +12,11 @@ class Navbar extends Component {
             <div className="line"></div>
           </div>
         </div>
-        <img src="/Whatslogo.png" alt="WhatsApp Logo" className="navbar-logo" />
+        <img
+          src={`${process.env.PUBLIC_URL}/Whatslogo.png`}
+          alt="Logo"
+          className="navbar-logo"
+        />
         <div className="download-icon">
           <div className="circle">
             <span className="down-arrow">↓</span>

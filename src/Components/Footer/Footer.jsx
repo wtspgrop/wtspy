@@ -6,7 +6,11 @@ export default function Footer() {
     <>
       <footer className="footer">
         <div className="footer-title">
-          <img src="/Whatslogo.png" alt="Logo" className="footer-logo" />
+          <img
+            src={`${process.env.PUBLIC_URL}/Whatslogo.png`}
+            alt="Logo"
+            className="footer-logo"
+          />
         </div>
         <div className="footer-links">
           <div className="footer-link-column">
